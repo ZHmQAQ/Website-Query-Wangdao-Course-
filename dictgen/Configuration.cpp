@@ -31,13 +31,22 @@ Configuration::Configuration(const string& config_path)
     {}
 
 // 根据 config_path 读配置文件，并且根据配置文件初始化 _path_list 和 _stop_word_path_list
-void readConfig(){
+void Configuration::readConfig(){
     ifstream ifs(_config_path);
     if(!ifs){ cerr << "open file error: " << _config_path << endl; return; }
 
     string line;
     while(getline(ifs, line)){
-
+        string filename, filepath;
+        istringstream iss(line);
+        iss >> filename >> filepath;
+        if(filename.substr(0, 10) == "stop_words"){
+            _stop_word_path_list[filename] = filepath;
+        }
+        else{
+            _path_list[filename] = filepath;
+        }
     }
+    ifs.close();
 }
 
