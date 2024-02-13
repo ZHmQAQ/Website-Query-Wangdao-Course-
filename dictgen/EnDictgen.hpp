@@ -26,18 +26,18 @@ public:
 
     void storeDict(const string& filename);        //将词典库写入到文件中
     void storeIndex(const string& filename);    //将索引库写入到文件
-    void createDict();      //创建词典库
+    void create();      // 生成 _dict 和 _index 对象
 
 private:
-    void readFilePath();    //读取文件路径
-    void addFileWord(const string& filename);     //添加文章单词
-    string dealWord(const string& word);    //处理单词
-    void addIndex(const string & word, int lineNumber); //添加索引
-    void dealLine(string& line);        //处理一行
+    void readFilePath();    // 从 _conf 读取文件路径
+    void addToDict(const string& filename);     //添加文章单词
+    void addToIndex(const string & word, int lineNumber); //添加索引
+    void processLine(string& line);   //处理一行
+    void processWord(string& word);   //处理单词
 
 private:
     Configuration& _conf;       //配置文件
-    vector<string> _files;      //语料库文件路径集合
+    vector<string> _path;      //语料库文件路径集合
     map<string, int> _dict;     //英文词典库
     map<string, set<int>> _index; //英文索引库
 };
